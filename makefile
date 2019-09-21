@@ -10,8 +10,8 @@
 #Compile with g++
 CC = g++
 
-#use -g for gnu debugger and -std= for c++14 compiling
-CXXFLAGS = -g -std=c++14
+#use -g for gnu debugger and -std= for c++17 compiling
+CXXFLAGS = -g -std=c++17
 
 ######Change to match all .cpp files.  Do not include .h files####
 OBJS = main.o player.o dice.o game.o scoreSheet.o
