@@ -14,4 +14,3 @@ void Game::turn() { //each player takes a turn in order
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
-

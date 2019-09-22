@@ -9,7 +9,7 @@
  sheet can read/write/tally/print its scores
  */
  
-class ScoreSheet
+class ScoreSheet final
 {
 private:
     std::array<std::pair<int, bool>, 15> scores;
@@ -20,7 +20,6 @@ public:
     ScoreSheet(const ScoreSheet& rhs) = delete;
     ScoreSheet(ScoreSheet&& rhs) = delete;
     ScoreSheet& operator=(ScoreSheet copy) = delete;
-
 
     int const upperScore() const;
     int const lowerScore() const;

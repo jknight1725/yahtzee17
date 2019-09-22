@@ -8,7 +8,7 @@ Player has dice and a score sheet
 Player rolls dice during turns and checks if their dice are valid scores before placing
 appropriate score on sheet.
  */
-class Player
+class Player final
 {
 private:
     Dice dice;

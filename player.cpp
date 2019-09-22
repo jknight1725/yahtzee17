@@ -20,15 +20,25 @@ void Player::displayScore() {
     std::cout << scores;
 }
 
+/*
+ * The turn opens with a roll of all of the dice
+ * turnContinues() returns true if the player elects to keep rolling their dice
+ * turnContinues() calls scoreSelection() and returns false if the player decides to stop rolling and score
+ * scoreSelection() prompts the player to pick a score on the score sheet for their dice, only returning true
+ * if a valid move is selected. A player selecting a score they have not scored yet,
+ * while they do not meet score criteria is counted as 'taking a zero' on that score.
+ * A player may not select a score they have already taken.
+ */
 void Player::turn() {
-    rollAll(); //turn opens with a roll of all dice
+    rollAll();
     if(turnContinues()) { //choose to score or roll
         if(turnContinues())
-            while(!scoreSelection()) { //until valid score is selected
+            while(!scoreSelection()) //Returns true once a valid score is chosen
+            {
                 std::cout << "You already scored that section, select another!\n";
-            } //turn over after three rolls
+            }
     }
-    displayScore();
+    displayScore();     //Show the updated scorecard to the player
 }
 
 //SCORING SECTION
@@ -36,11 +46,11 @@ int Player::totalOfDice() {
     return dice.total();
 }
 
-bool Player::topScore(int value) { //calculates scores for upper section
-    if(!scoreAvailable(value-1)) return false;
+bool Player::topScore(int value) { //calculates scores for upper section, ones-sixes
+    if(!scoreAvailable(value-1)) return false; //value-1 is correct index of that score i.e. ones are index zero
     int points = 0;
-    for(int i = 0; i < dice.size(); i++) {
-        if(dice[i] == value)
+    for(const auto& die : dice) {
+        if(die == value)
             points += value;
     }
     recordScore(value-1, points);
@@ -58,6 +68,15 @@ bool Player::scoreAvailable(int index) {
     return scores.available(index);
 }
 
+
+/*
+ * Functions to check score for validity and record appropriate score
+ *
+ * The score sheet is checked for availability - returning false for an invalid move
+ * The score criteria is compared against the dice values - if the move is valid record appropriate points
+ * otherwise record a ZERO.
+ *
+ */
 bool Player::threeKind() { //worth total of dice
     if (!scoreAvailable(score::threeKind)) return false;
     isThreeKind() ? recordScore(score::threeKind, totalOfDice()) : recordScore(score::threeKind, 0);
@@ -89,13 +108,10 @@ bool Player::lgStraight() { //worth 40 points
 }
 
 bool Player::yahtzee() { //first worth 50, each additional worth 100
-    if(isYahtzee()) {
-        if(scoreAvailable(score::yahtzee))
-            recordScore(score::yahtzee, 50);
-        else
-            recordScore(score::yahtzee, 100);
-    }
-    recordScore(score::yahtzee, 0);
+    if(isYahtzee())
+        scoreAvailable(score::yahtzee) ? recordScore(score::yahtzee, 50) : recordScore(score::yahtzee, 100);
+    else
+        recordScore(score::yahtzee, 0);
     return true;
 }
 
@@ -139,15 +155,8 @@ bool Player::isFullHouse() { //pair of three and pair of two
         dice.count(5),
         dice.count(6)
     };
-    for(auto count : counts) { //look for pair of three
-        if(count == 3) { //pair of three found
-            for(auto c : counts) { //look for pair of two
-                if(c == 2) //pair of two found
-                    return true;
-            }
-        }
-    }
-    return false;
+    return std::find(counts.begin(),counts.end(), 3) != counts.end() &&
+    std::find(counts.begin(),counts.end(), 2) != counts.end();
 }
 
 bool Player::isSmStraight() {
@@ -173,13 +182,15 @@ bool Player::isSmStraight() {
     else return (counts[score::fives] >= 1) && (counts[score::sixes] >= 1);
 }
 
-bool Player::isLgStraight() { //two possible ways to obtain
+
+// Two possible ways sorted dice can be a large straight, [1,2,3,4,5] and [2,3,4,5,6]
+bool Player::isLgStraight() {
     dice.sort();
-    // 1,2,3,4,5
+    //[1,2,3,4,5]
     if((dice[0]==1)&&(dice[1]==2)&&(dice[2]==3)&&(dice[3]==4)&&(dice[4]==5))
         return true;
-    //true if [2,3,4,5,6] false otherwise
-    else return (dice[0] == 2) && (dice[1] == 3) && (dice[2] == 4) && (dice[3] == 5) && (dice[4] == 6);
+    else // [2,3,4,5,6] or false for lgStraight test
+        return (dice[0] == 2) && (dice[1] == 3) && (dice[2] == 4) && (dice[3] == 5) && (dice[4] == 6);
 }
 
 bool Player::isChance() {
@@ -200,7 +211,8 @@ bool Player::turnContinues() { //roll again or select a score
     std::cout << "Make a selection\n['r' Roll Again | 's' Score]\n";
     std::cin >> choice;
     choice = static_cast<char>(std::tolower(choice));
-    while(std::cin.fail() || (choice != 'r' && choice != 's')) { //if bad input
+    while(std::cin.fail() || (choice != 'r' && choice != 's')) //sanitize input
+    {
         std::cin.clear();
         std::cin.ignore(1000,'\n');
         displayScore();
@@ -218,8 +230,7 @@ bool Player::turnContinues() { //roll again or select a score
                 std::cout << "You already scored that section, select another!\n";
             }
             return false;
-        default:
-            std::cout << "Program terminating.";
+        default: //undefined behavior
             exit(0);
     }
 }
@@ -248,14 +259,15 @@ bool Player::scoreSelection() {
     displayDice();
     std::cout << "Make a selection (1-13)\n";
     std::cin >> choice;
-    while(std::cin.fail() || choice < 1 || choice > 13) { //if bad input
+    while(std::cin.fail() || choice < 1 || choice > 13) //sanitize input
+    {
         std::cin.clear();
         std::cin.ignore(1000,'\n');
         displayScore();
         displayDice();
         std::cout<<"Invalid Selection, Try again! (1-13)\n";
         std::cin >> choice;
-    } //while
+    }
     switch(choice)
     {
         case(1):
@@ -284,9 +296,7 @@ bool Player::scoreSelection() {
             return yahtzee();
         case(13):
             return chance();
-        default: 
-            std::cout << "Program terminating.";
+        default: //Undefined Behavior
             exit(0);
     }
-    
 }

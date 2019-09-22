@@ -2,7 +2,7 @@
 #include <random>
 #include <algorithm>
 
-static std::random_device rd; //entropy
+static std::random_device rd; //seed generator
 static std::mt19937 generator(rd()); //generate random numbers
 
 
@@ -11,15 +11,18 @@ void Dice::rollAll() {
         die = sides(generator);
 }
 
-void Dice::rollIndividual(int index) {
+void Dice::rollIndividual(int index) { //TODO: currently relies on promise of sanitized input from player class
     dice[index-1] = sides(generator);
 }
 
 void Dice::show() const {
     for(const auto& die : dice) {
-        std::cout << '[' << die << ']' << ' '; //pretty print dice
+        std::cout << '[' << die << ']' << ' ';
     }
     std::cout << std::endl;
+    std::cout << " ^   ^   ^   ^   ^\n";
+    std::cout << " |   |   |   |   |\n";
+    std::cout << " 1   2   3   4   5\n";
 }
 
 int Dice::total() const { //sum dice
