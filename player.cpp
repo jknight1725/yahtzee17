@@ -109,7 +109,7 @@ bool Player::lgStraight() { //worth 40 points
 
 bool Player::yahtzee() { //first worth 50, each additional worth 100
     if(isYahtzee())
-        scoreAvailable(score::yahtzee) ? recordScore(score::yahtzee, 50) : recordScore(score::yahtzee, 100);
+        scoreAvailable(score::yahtzee) ? recordScore(score::yahtzee, 50) : recordScore(score::yahtzeeBonus, 100);
     else
         recordScore(score::yahtzee, 0);
     return true;
@@ -187,7 +187,7 @@ bool Player::isSmStraight() {
 bool Player::isLgStraight() {
     dice.sort();
     //[1,2,3,4,5]
-    if((dice[0]==1)&&(dice[1]==2)&&(dice[2]==3)&&(dice[3]==4)&&(dice[4]==5))
+    if((dice[0] == 1) && (dice[1] == 2) && (dice[2] == 3) && (dice[3] == 4) && (dice[4] == 5))
         return true;
     else // [2,3,4,5,6] or false for lgStraight test
         return (dice[0] == 2) && (dice[1] == 3) && (dice[2] == 4) && (dice[3] == 5) && (dice[4] == 6);
@@ -206,7 +206,7 @@ bool Player::isYahtzee() {
 }
 
 bool Player::turnContinues() { //roll again or select a score
-    char choice = '0';
+    char choice {'0'};
     displayDice();
     std::cout << "Make a selection\n['r' Roll Again | 's' Score]\n";
     std::cin >> choice;
@@ -237,7 +237,7 @@ bool Player::turnContinues() { //roll again or select a score
 
 void Player::nextRoll() { //player selects dice to re-roll
     std::vector<int> rerolls;
-    int value = -1;
+    int value {-1};
     std::cout << "Pick which die to re-roll(1-5)\nEnter 0 when complete\n";
     while(value != 0) {
         std::cin >> value;
@@ -249,12 +249,16 @@ void Player::nextRoll() { //player selects dice to re-roll
         if(value > 0 && value < 6)
             rerolls.push_back(value);
     }
-    for (auto reroll : rerolls)
+    for (const auto& reroll : rerolls)
         rollIndividual(reroll);
 }
 
+int Player::finalScore() {
+    return scores.totalScore();
+}
+
 bool Player::scoreSelection() {
-    int choice = 0;
+    int choice {0};
     displayScore();
     displayDice();
     std::cout << "Make a selection (1-13)\n";
@@ -265,7 +269,7 @@ bool Player::scoreSelection() {
         std::cin.ignore(1000,'\n');
         displayScore();
         displayDice();
-        std::cout<<"Invalid Selection, Try again! (1-13)\n";
+        std::cout << "Invalid Selection, Try again! (1-13)\n";
         std::cin >> choice;
     }
     switch(choice)

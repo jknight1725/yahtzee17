@@ -36,6 +36,7 @@ public:
     bool yahtzee();
     bool chance();
     void checkBonus(); //if appropriate apply topScore bonus
+    int finalScore();
     //validation section
     bool isThreeKind();
     bool isFourKind();

@@ -14,7 +14,9 @@ private:
     std::uniform_int_distribution<int> sides;
 
 public:
-    Dice() : sides (1, 6), dice{0,0,0,0,0} {}
+    Dice() : sides {1, 6},
+             dice{0,0,0,0,0}
+             {}
     ~Dice() = default;
     Dice(const Dice& rhs) = delete;
     Dice(Dice&& rhs) = delete;
@@ -32,7 +34,6 @@ public:
     // iterators - treat dice class like a container
     using iterator = std::array<int, 5>::iterator;
     using const_iterator = std::array<int, 5>::const_iterator;
-
     inline iterator begin() noexcept { return dice.begin(); }
     inline const_iterator cbegin() const noexcept { return dice.cbegin(); }
     inline iterator end() noexcept { return dice.end(); }

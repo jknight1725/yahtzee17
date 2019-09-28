@@ -20,9 +20,9 @@ void Dice::show() const {
         std::cout << '[' << die << ']' << ' ';
     }
     std::cout << std::endl;
-    std::cout << " ^   ^   ^   ^   ^\n";
-    std::cout << " |   |   |   |   |\n";
-    std::cout << " 1   2   3   4   5\n";
+    std::cout << " ^   ^   ^   ^   ^\n"
+                 " |   |   |   |   |\n"
+                 " 1   2   3   4   5\n";
 }
 
 int Dice::total() const { //sum dice

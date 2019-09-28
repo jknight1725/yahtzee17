@@ -9,7 +9,7 @@ ScoreSheet::ScoreSheet() { //by default all scores set to zero
 }
 
 int const ScoreSheet::upperScore() const { //tally ones-sixes
-    int upperScore = 0;
+    int upperScore {0};
     for(int i = 0; i < bonus; ++i) {
         upperScore += scores[i].first;
     }
@@ -17,7 +17,7 @@ int const ScoreSheet::upperScore() const { //tally ones-sixes
 }
 
 int const ScoreSheet::lowerScore() const { //tally from threeKind to last score
-    int lowerScore = 0;
+    int lowerScore {0};
     for(int i = threeKind; i < scores.size(); ++i) {
         lowerScore += scores[i].first;
     }
@@ -25,15 +25,21 @@ int const ScoreSheet::lowerScore() const { //tally from threeKind to last score
 }
 
 int const ScoreSheet::totalScore() const { //tally all scores on sheet
-    return upperScore() + lowerScore();
+    int total {0};
+    for(const auto& [points, _] : scores) {
+        total += points;
+    }
+    return total;
 }
 
 bool ScoreSheet::available(int index) const {
-    return scores[index].second;
+    const auto [_, available] = scores[index];
+    return available;
 }
 
 void ScoreSheet::makeUnavailable(int index) {
-    scores[index].second = false;
+    auto& [_, available] = scores[index];
+    available = false;
 }
 
 std::ostream & operator<<(std::ostream & out, const ScoreSheet& sheet)
