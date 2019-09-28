@@ -108,10 +108,15 @@ bool Player::lgStraight() { //worth 40 points
 }
 
 bool Player::yahtzee() { //first worth 50, each additional worth 100
-    if(isYahtzee())
-        scoreAvailable(score::yahtzee) ? recordScore(score::yahtzee, 50) : recordScore(score::yahtzeeBonus, 100);
-    else
+    if(isYahtzee()) {
+        if (scoreAvailable(score::yahtzee))
+            recordScore(score::yahtzee, 50);
+        else if (scores[score::yahtzee] == 50)  // second yahtzee or greater if true
+            recordScore(score::yahtzeeBonus, 100);
+    }
+    else {//record zero if not yahtzee
         recordScore(score::yahtzee, 0);
+    }
     return true;
 }
 
