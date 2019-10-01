@@ -15,8 +15,9 @@ private:
 
 public:
     Dice() : sides {1, 6},
-             dice{0,0,0,0,0}
-             {}
+             dice {0,0,0,0,0}
+             {
+             }
     ~Dice() = default;
     Dice(const Dice& rhs) = delete;
     Dice(Dice&& rhs) = delete;

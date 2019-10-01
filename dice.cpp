@@ -11,8 +11,8 @@ void Dice::rollAll() {
         die = sides(generator);
 }
 
-void Dice::rollIndividual(int index) { //TODO: currently relies on promise of sanitized input from player class
-    dice[index-1] = sides(generator);
+void Dice::rollIndividual(int index) {
+    dice[index] = sides(generator);
 }
 
 void Dice::show() const {
@@ -26,7 +26,7 @@ void Dice::show() const {
 }
 
 int Dice::total() const { //sum dice
-    return std::reduce(dice.begin(), dice.end());
+    return std::reduce(dice.cbegin(), dice.cend());
 }
 
 void Dice::sort() { //sort dice lowest to highest
@@ -34,5 +34,5 @@ void Dice::sort() { //sort dice lowest to highest
 }
 
 int Dice::count(int value) const { //how many times a die appears in dice
-    return std::count(dice.begin(),dice.end(),value);
+    return static_cast<int>(std::count(dice.cbegin(),dice.cend(),value));
 }

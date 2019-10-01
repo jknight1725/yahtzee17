@@ -2,14 +2,13 @@
 #include "enumScore.h"
 #include <vector>
 
-
 //ACTION SECTION
 void Player::rollAll() {
     dice.rollAll();
 }
 
 void Player::rollIndividual(int index) {
-    dice.rollIndividual(index);
+    dice.rollIndividual(index-1); // 1-5 maps to dice index[0..4]
 }
 
 void Player::displayDice() {
@@ -107,16 +106,42 @@ bool Player::lgStraight() { //worth 40 points
     return true;
 }
 
+
+//joker rules - second yahtzee or greater
+//attempt to score appropriate upper section
+//else attempt to score in lower section
+//first available of lg, sm, full, four, three, chance
+//if all unavailable place zero in an available upper section
+
 bool Player::yahtzee() { //first worth 50, each additional worth 100
     if(isYahtzee()) {
         if (scoreAvailable(score::yahtzee))
             recordScore(score::yahtzee, 50);
-        else if (scores[score::yahtzee] == 50)  // second yahtzee or greater if true
+        else if (scores[score::yahtzee] == 50) {  // second yahtzee or greater if true
             recordScore(score::yahtzeeBonus, 100);
+
+            if(scoreAvailable(dice[0]-1))
+                recordScore(dice[0]-1,totalOfDice());
+            else if(scoreAvailable(score::lgStraight))
+                recordScore(score::lgStraight, 40);
+            else if(scoreAvailable(score::smStraight))
+                recordScore(score::smStraight, 30);
+            else if(scoreAvailable(score::fullHouse))
+                recordScore(score::fullHouse, 25);
+            else if(scoreAvailable(score::fourKind))
+                recordScore(score::fourKind, totalOfDice());
+            else if(scoreAvailable(score::threeKind))
+                recordScore(score::threeKind, totalOfDice());
+            else if(scoreAvailable(score::chance))
+                recordScore(score::chance, totalOfDice());
+            else
+                ;
+        }
     }
     else {//record zero if not yahtzee
         recordScore(score::yahtzee, 0);
     }
+    checkBonus(); // in case second yahtzee was scored on top
     return true;
 }
 
@@ -136,9 +161,8 @@ void Player::checkBonus() {
 //VALIDATION SECTION
 bool Player::isThreeKind() {
     for(int i = 1; i < 7; i++) { //count the number of times 1-6 are found in dice
-        if(dice.count(i) >= 3) {
+        if(dice.count(i) >= 3)
             return true;
-        }
     }
     return false;
 }

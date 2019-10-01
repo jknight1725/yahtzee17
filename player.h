@@ -14,6 +14,12 @@ private:
     Dice dice;
     ScoreSheet scores;
 public:
+    Player() = default;
+    ~Player() = default;
+    Player(const Player& rhs) = delete;
+    Player(Player&& rhs) = delete;
+    Player& operator=(Player copy) = delete;
+
     //action section
     void rollAll();
     void rollIndividual(int index);

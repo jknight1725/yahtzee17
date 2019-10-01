@@ -40,6 +40,7 @@ void Game::menu() {
 void Game::multiPlayer() {
     std::cout << "How many players?\n";
     int choice{0};
+    std::cin >> choice;
     while(std::cin.fail() || (choice < 0 )) //sanitize input
     {
         std::cin.clear();
