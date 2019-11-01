@@ -38,7 +38,7 @@ Name: player.cpp
       
 Name: dice.cpp
 	The dice class maintains an array of 5 ints. It has methods to mutate any of the indices to a number between one and six. It provides methods to view the dice, sort the dice, and return how often a given number appears in the set of dice. 
-   The dice.cpp file also maintains a static RNG used by all instances of Dice.
+   The dice.cpp file also maintains a static RNG used by all instances of Dice. 
 
 Name: scoreSheet.cpp
    The ScoreSheet class maintains an array of 15 different scores found on a Yahtzee scoresheet. It has methods to total several different meaningful values out of these scores such has the total score, the upper score, and the lower score. It provides read/write access to its scores. It has an overloaded << operator for neat printing of the scoresheet.
