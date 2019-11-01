@@ -50,13 +50,13 @@ Name: scoreSheet.cpp
    
    The program was compiled and tested with 
    Apple LLVM version 9.1.0 (clang-902.0.39.2) 
-   It was developed using Xcode  
+   It was developed using JetBrains CLion 
 
 *******************************************************
 *  How to build and run the program
 *******************************************************
 
-1. Uncompress the file.  The file is compressed.  
+1. Uncompress the file.  If the file is compressed.  
    To uncompress it use the following commands 
        $ unzip Yahtzee
 
