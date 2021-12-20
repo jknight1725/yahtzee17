@@ -1,5 +1,5 @@
-#include "dice.h"
-#include "scoreSheet.h"
+#include <include/dice.h>
+#include <include/scoreSheet.h>
 
 #ifndef _Player_H
 #define _Player_H

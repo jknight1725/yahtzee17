@@ -1,5 +1,5 @@
-#include "player.h"
-#include "enumScore.h"
+#include <include/player.h>
+#include <include/enumScore.h>
 #include <vector>
 
 //ACTION SECTION
