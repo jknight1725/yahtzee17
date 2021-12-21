@@ -1,5 +1,5 @@
-#include "scoreSheet.h"
-#include "enumScore.h"
+#include <include/scoreSheet.h>
+#include <include/enumScore.h>
 
 ScoreSheet::ScoreSheet() { //by default all scores set to zero
     for(auto& [points, available] : scores) {
