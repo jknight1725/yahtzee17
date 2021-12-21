@@ -55,26 +55,7 @@ Name: scoreSheet.cpp
 *******************************************************
 *  How to build and run the program
 *******************************************************
-
-1. Uncompress the file.  If the file is compressed.  
-   To uncompress it use the following commands 
-       $ unzip Yahtzee
-
-   Now you should see a directory named yahtzee with the files:
-        dice.cpp	game.cpp	makefile	readMe.txt
-	dice.h		game.h		player.cpp	scoreSheet.cpp
-	enumScore.h	main.cpp	player.h	scoreSheet.h
-
-2. Build the program.
-
-    Change to the directory that contains the file by:
-    $ cd yahtzee
-
-    Compile the program by:
-    $ make
-
-3. Run the program by:
-   $ ./yahtzee
-
-4. Delete the obj files, executables, and core dump by
-   %./make clean
+cd build
+cmake ..
+make
+./yahtzee17
