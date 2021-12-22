@@ -4,40 +4,68 @@
 
 #ifndef _DICE_H
 #define _DICE_H
-/*
-Defines a set of five dice that can change their values to a random number
-in a specified range (1,6) upon being rolled.
-*/
+
+/// @tparam NUM_DICE The amount of die to use
+/// @tparam MAX_PIPS How many sides each die will have
+template<auto NUM_DICE = 5, auto MAX_PIPS = 6>
 class Dice final {
-private:
-    std::array<int, 5> dice;
-    std::uniform_int_distribution<int> sides;
 
 public:
-    Dice() : sides {1, 6},
-             dice {0,0,0,0,0}
-             {
-             }
-    ~Dice() = default;
-    Dice(const Dice& rhs) = delete;
-    Dice(Dice&& rhs) = delete;
-    Dice& operator=(Dice copy) = delete;
+    Dice()
+    {
+        this->rollAll();
+    }
 
-    void rollAll(); //roll every die
-    void rollIndividual(int index); //roll one selected die
-    void sort(); //lowest - highest
-    void show() const; //display all die
-    int total() const; //sum of all die
-    int count(int value) const; //how many times a die appears in dice
-    auto size() const {return dice.size();} //number of die in dice
-    int operator [] (int index) const  {return dice[index];} //read dice
+    void rollAll() noexcept {
+        std::for_each(dice.begin(),dice.end(),[](auto& d){ d = getRandomDie(); });
+    }
 
-    // iterators - treat dice class like a container
-    using iterator = std::array<int, 5>::iterator;
-    using const_iterator = std::array<int, 5>::const_iterator;
+    void rollIndividual(int index) noexcept {
+        dice.at(index) = getRandomDie();
+    }
+
+    void sort() noexcept {
+        std::sort(dice.begin(), dice.end());
+    }
+
+    void show() const noexcept {
+        std::for_each(dice.begin(),dice.end(),[](const auto& die){ std::cout << '[' << die << ']' << ' '; });
+        std::cout << "\n"   " ^   ^   ^   ^   ^\n"
+                            " |   |   |   |   |\n"
+                            " 1   2   3   4   5\n";
+    }
+
+    int total() const noexcept {
+        return std::reduce(dice.cbegin(), dice.cend());
+    }
+
+    auto count(int value) const noexcept {
+        return std::count(dice.cbegin(), dice.cend(), value);
+    } 
+
+    [[nodiscard]] constexpr auto size() const noexcept{
+        return NUM_DICE;
+    }
+
+    inline std::size_t operator [] (std::size_t index) const  {
+        return dice.at(index); 
+    }
+
+    inline auto static getRandomDie() noexcept {
+        static std::random_device rd;
+        static std::mt19937 generator(rd());
+        static std::uniform_int_distribution<int> sides{1, MAX_PIPS};
+        return sides(generator);
+    }
+
+    using iterator =  typename std::array<int, NUM_DICE>::iterator;
+    using const_iterator = typename std::array<int, NUM_DICE>::const_iterator;
     inline iterator begin() noexcept { return dice.begin(); }
     inline const_iterator cbegin() const noexcept { return dice.cbegin(); }
     inline iterator end() noexcept { return dice.end(); }
     inline const_iterator cend() const noexcept { return dice.cend(); }
+
+private:
+    std::array<int, NUM_DICE> dice;
 };
 #endif

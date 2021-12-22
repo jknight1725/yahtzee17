@@ -1,13 +1,6 @@
 #include <include/scoreSheet.h>
 #include <include/enumScore.h>
 
-ScoreSheet::ScoreSheet() { //by default all scores set to zero
-    for(auto& [points, available] : scores) {
-        points = 0;
-        available = true;
-    }
-}
-
 int const ScoreSheet::upperScore() const { //tally ones-sixes
     int upperScore {0};
     for(int i = 0; i < bonus; ++i) {

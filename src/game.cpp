@@ -4,7 +4,7 @@
 
 void Game::addPlayers(int x)  { //make x players
     for(int i = 0; i < x; ++i) {
-        players.push_back(std::make_unique<Player>());
+        players.push_back(Player{});
     }
 }
 
@@ -51,16 +51,16 @@ void Game::multiPlayer() {
 }
 
 void Game::turn() { //each player takes a turn in order
-    for(const auto& player : players) {
-        player->turn();
+    for(auto& player : players) {
+        player.turn();
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
 
 void Game::saveScores() {
     std::ofstream scores {high_scores, std::ios::app};
-    for (const auto& player : players) {
-        scores << player->finalScore() << std::endl;
+    for (auto& player : players) {
+        scores << player.finalScore() << std::endl;
     }
 }
 

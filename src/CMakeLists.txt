@@ -1,5 +1,4 @@
 add_library(src
-    dice.cpp
     game.cpp
     player.cpp
     scoreSheet.cpp

@@ -8,7 +8,7 @@
 //dynamically allocates players and gives them turns
 class Game final {
 private:
-    std::vector<std::unique_ptr<Player>> players; //store players
+    std::vector<Player> players; //store players
     std::string high_scores {"highScores.txt"};
 public:
     Game() = default;
@@ -16,8 +16,8 @@ public:
     Game(const Game& rhs) = delete;
     Game(Game&& rhs) = delete;
     Game& operator=(Game copy) = delete;
-    void addPlayers(int x); //dynamically allocate x players
-    void turn(); //call turn on every player
+    void addPlayers(int x);
+    void turn();
     void menu();
     void multiPlayer();
     void saveScores();
