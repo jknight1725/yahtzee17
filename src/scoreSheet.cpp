@@ -1,38 +1,35 @@
 #include <include/scoreSheet.h>
 #include <include/enumScore.h>
 
-int const ScoreSheet::upperScore() const { //tally ones-sixes
+ //tally ones-sixes
+int const ScoreSheet::upperScore() const {
     int upperScore {0};
     for(int i = 0; i < bonus; ++i) {
-        upperScore += scores[i].first;
+        upperScore += scores[i].value_or(0);
     }
     return upperScore;
 }
 
-int const ScoreSheet::lowerScore() const { //tally from threeKind to last score
+//tally from threeKind to last score
+int const ScoreSheet::lowerScore() const { 
     int lowerScore {0};
     for(int i = threeKind; i < scores.size(); ++i) {
-        lowerScore += scores[i].first;
+        lowerScore += scores[i].value_or(0);
     }
     return lowerScore;
 }
 
-int const ScoreSheet::totalScore() const { //tally all scores on sheet
+//tally all scores on sheet
+int const ScoreSheet::totalScore() const { 
     int total {0};
-    for(const auto& [points, _] : scores) {
-        total += points;
+    for(const auto& score : scores) {
+        total += score.value_or(0);
     }
     return total;
 }
 
 bool ScoreSheet::available(int index) const {
-    const auto [_, available] = scores[index];
-    return available;
-}
-
-void ScoreSheet::makeUnavailable(int index) {
-    auto& [_, available] = scores[index];
-    available = false;
+    return !scores[index].has_value();
 }
 
 std::ostream & operator<<(std::ostream & out, const ScoreSheet& sheet)

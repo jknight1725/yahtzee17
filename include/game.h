@@ -1,21 +1,13 @@
+#pragma once
+
 #include <include/player.h>
+#include <include/configs.h>
 #include <vector>
-#include <memory>
 #include <fstream>
 
-#ifndef _GAME_H
-#define _GAME_H
-//dynamically allocates players and gives them turns
 class Game final {
-private:
-    std::vector<Player> players; //store players
-    std::string high_scores {"highScores.txt"};
+
 public:
-    Game() = default;
-    ~Game() = default;
-    Game(const Game& rhs) = delete;
-    Game(Game&& rhs) = delete;
-    Game& operator=(Game copy) = delete;
     void addPlayers(int x);
     void turn();
     void menu();
@@ -25,7 +17,10 @@ public:
     std::vector<int> loadScores();
 
 private:
-    std::string ascii_art {
+    std::vector<Player<Defaults::StandardDice>> players;
+    const std::string highScoresFile {"highScores.txt"};
+    
+    const std::string banner {
             "\n\n"
             " #     #                                          \n"
             "  #   #    ##   #    # ##### ###### ###### ###### \n"
@@ -36,7 +31,8 @@ private:
             "    #    #    # #    #   #   ###### ###### ######   "
             "\n\n"
     };
-    std::string greeting {
+
+    const std::string greeting {
             "Welcome Back\n"
             "Make a Selection\n"
             "1) Quick Game\n"
@@ -44,4 +40,3 @@ private:
             "3) HighScores\n"
     };
 };
-#endif

@@ -8,9 +8,8 @@ void Game::addPlayers(int x)  { //make x players
     }
 }
 
-
 void Game::menu() {
-    std::cout << ascii_art << std::endl;
+    std::cout << banner << std::endl;
     std::cout << greeting << std::endl;
     int choice {-1};
     std::cin >> choice;
@@ -58,14 +57,14 @@ void Game::turn() { //each player takes a turn in order
 }
 
 void Game::saveScores() {
-    std::ofstream scores {high_scores, std::ios::app};
+    std::ofstream scores {highScoresFile, std::ios::app};
     for (auto& player : players) {
         scores << player.finalScore() << std::endl;
     }
 }
 
 std::vector<int> Game::loadScores() {
-    std::ifstream saved {high_scores, std::ios::in};
+    std::ifstream saved {highScoresFile, std::ios::in};
     std::vector<int> scores;
     int score;
     while(saved >> score) {

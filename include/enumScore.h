@@ -1,6 +1,5 @@
-#ifndef _ENUMSCORE_H
-#define _ENUMSCORE_H
-//used to refer to indices by score not numbers
+#pragma once
+
 enum score {
     ones,
     twos,
@@ -18,4 +17,3 @@ enum score {
     chance,
     yahtzeeBonus
 };
-#endif

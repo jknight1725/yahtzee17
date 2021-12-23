@@ -1,33 +1,21 @@
+#pragma once
+
 #include <array>
 #include <iostream>
+#include <optional>
 
-#ifndef _scoreSheet_H
-#define _scoreSheet_H
-/*
- Array of 15 <int/bool> pairs corresponding to different yahtzee scores.
- bool indicates if the score sheet has already recorded the respective score
- sheet can read/write/tally/print its scores
- */
- 
 class ScoreSheet final
 {
+
 private:
-    std::array<std::pair<int, bool>, 15> scores;
+    std::array<std::optional<int>, 15> scores;
+
 public:
-    ScoreSheet() noexcept { //by default all scores set to zero
-        for(auto& [points, available] : scores) {
-            points = 0;
-            available = true;
-        }
-    }
     int const upperScore() const;
     int const lowerScore() const;
     int const totalScore() const;
     bool available(int index) const;
-    void makeUnavailable(int index);
-    int const& operator [] (int index) const {return scores[index].first;}
-    int& operator[] (int index) {return scores[index].first;}
+    int const operator [] (int index) const {return scores[index].value_or(0);}
+    std::optional<int>& operator[] (int index) {return scores[index];}
     friend std::ostream & operator<<(std::ostream & out, const ScoreSheet& sheet);
 };
-
-#endif

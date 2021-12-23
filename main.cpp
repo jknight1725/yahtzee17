@@ -1,3 +1,4 @@
+#include <include/configs.h>
 #include <include/dice.h>
 #include <include/player.h>
 #include <include/scoreSheet.h>
@@ -8,7 +9,7 @@ int main()
 {
     Game game;
     game.menu();
-    for(int i = 0; i < 13; ++i) {
+    for(int i = 0; i < Defaults::turnsPerGame; ++i) {
         game.turn();
     }
     game.saveScores();

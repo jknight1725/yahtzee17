@@ -1,9 +1,8 @@
+#pragma once
+
 #include <array>
 #include <iostream>
 #include <random>
-
-#ifndef _DICE_H
-#define _DICE_H
 
 /// @tparam NUM_DICE The amount of die to use
 /// @tparam MAX_PIPS How many sides each die will have
@@ -47,15 +46,15 @@ public:
         return NUM_DICE;
     }
 
-    inline std::size_t operator [] (std::size_t index) const  {
+    inline std::size_t operator [] (const std::size_t index) const  {
         return dice.at(index); 
     }
 
     inline auto static getRandomDie() noexcept {
         static std::random_device rd;
         static std::mt19937 generator(rd());
-        static std::uniform_int_distribution<int> sides{1, MAX_PIPS};
-        return sides(generator);
+        static std::uniform_int_distribution<int> pips{1, MAX_PIPS};
+        return pips(generator);
     }
 
     using iterator =  typename std::array<int, NUM_DICE>::iterator;
@@ -68,4 +67,4 @@ public:
 private:
     std::array<int, NUM_DICE> dice;
 };
-#endif
+

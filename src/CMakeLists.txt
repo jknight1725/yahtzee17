@@ -1,6 +1,5 @@
 add_library(src
     game.cpp
-    player.cpp
     scoreSheet.cpp
 )
 include_directories(${PROJECT_SOURCE_DIR})
