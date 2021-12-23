@@ -11,20 +11,14 @@ appropriate score on sheet.
 class Player final
 {
 private:
-    Dice dice;
+    Dice<5,6> dice;
     ScoreSheet scores;
 public:
-    Player() = default;
-    ~Player() = default;
-    Player(const Player& rhs) = delete;
-    Player(Player&& rhs) = delete;
-    Player& operator=(Player copy) = delete;
-
     //action section
     void rollAll();
     void rollIndividual(int index);
     void displayDice();
-    void displayScore();
+    void displayScore() const;
     void turn();
     bool turnContinues(); //choose to score or roll
     void nextRoll(); //continue turn, choose which dice to roll

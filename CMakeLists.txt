@@ -10,6 +10,6 @@ add_executable(yahtzee17 main.cpp)
 target_link_libraries(yahtzee17 PUBLIC src)
 
 target_include_directories(yahtzee17 PUBLIC
-                          "${PROJECT_BINARY_DIR}"
+                          "${PROJECT_BINARY_DIR}/build"
                           "${PROJECT_SOURCE_DIR}"
                           )

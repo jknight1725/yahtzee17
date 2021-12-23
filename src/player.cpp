@@ -15,7 +15,7 @@ void Player::displayDice() {
     dice.show();
 }
 
-void Player::displayScore() {
+void Player::displayScore() const {
     std::cout << scores;
 }
 
@@ -176,7 +176,7 @@ bool Player::isFourKind() {
 }
 
 bool Player::isFullHouse() { //pair of three and pair of two
-    std::vector<int> counts{
+    std::vector counts{
         dice.count(1),
         dice.count(2),
         dice.count(3),
@@ -185,11 +185,11 @@ bool Player::isFullHouse() { //pair of three and pair of two
         dice.count(6)
     };
     return std::find(counts.begin(),counts.end(), 3) != counts.end() &&
-    std::find(counts.begin(),counts.end(), 2) != counts.end();
+        std::find(counts.begin(),counts.end(), 2) != counts.end();
 }
 
 bool Player::isSmStraight() {
-    std::vector<int> counts{
+    std::vector counts{
             dice.count(1),
             dice.count(2),
             dice.count(3),
