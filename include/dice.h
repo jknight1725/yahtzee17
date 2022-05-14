@@ -19,10 +19,7 @@ public:
              {
              }
     ~Dice() = default;
-    Dice(const Dice& rhs) = delete;
-    Dice(Dice&& rhs) = delete;
-    Dice& operator=(Dice copy) = delete;
-
+    
     void rollAll(); //roll every die
     void rollIndividual(int index); //roll one selected die
     void sort(); //lowest - highest

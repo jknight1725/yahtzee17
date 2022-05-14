@@ -1,8 +1,8 @@
-#include "dice.h"
-#include "player.h"
-#include "scoreSheet.h"
-#include "game.h"
-#include "enumScore.h"
+#include "../include/dice.h"
+#include "../include/player.h"
+#include "../include/scoreSheet.h"
+#include "../include/game.h"
+#include "../include/enumScore.h"
 //A game of yahtzee
 int main()
 {

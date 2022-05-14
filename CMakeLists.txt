@@ -1,19 +1,19 @@
 cmake_minimum_required(VERSION 3.13)
-project(yahtzeeWorking)
+project(yahtzee17)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(src)
+set(SOURCES
+    src/dice.cpp
+    src/game.cpp
+    src/main.cpp
+    src/player.cpp
+    src/scoreSheet.cpp
+)
 
-add_executable(yahtzee17
-src/dice.cpp
-src/dice.h
-src/enumScore.h
-src/game.cpp
-src/game.h
-src/main.cpp
-src/player.cpp
-src/player.h
-src/scoreSheet.cpp
-src/scoreSheet.h
+add_executable(yahtzee17 ${SOURCES})
+
+target_include_directories(yahtzee17
+    PUBLIC
+        ${PROJECT_SOURCE_DIR}/include
 )

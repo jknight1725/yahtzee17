@@ -1,5 +1,6 @@
-#include "player.h"
-#include "enumScore.h"
+#include "../include/dice.h"
+#include "../include/player.h"
+#include "../include/enumScore.h"
 #include <vector>
 
 //ACTION SECTION
@@ -15,7 +16,7 @@ void Player::displayDice() {
     dice.show();
 }
 
-void Player::displayScore() {
+void Player::displayScore() const {
     std::cout << scores;
 }
 
@@ -185,7 +186,7 @@ bool Player::isFullHouse() { //pair of three and pair of two
         dice.count(6)
     };
     return std::find(counts.begin(),counts.end(), 3) != counts.end() &&
-    std::find(counts.begin(),counts.end(), 2) != counts.end();
+        std::find(counts.begin(),counts.end(), 2) != counts.end();
 }
 
 bool Player::isSmStraight() {

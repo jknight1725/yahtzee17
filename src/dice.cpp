@@ -1,6 +1,7 @@
-#include "dice.h"
+#include "../include/dice.h"
 #include <random>
 #include <algorithm>
+#include <numeric>
 
 static std::random_device rd; //seed generator
 static std::mt19937 generator(rd()); //generate random numbers

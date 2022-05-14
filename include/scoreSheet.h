@@ -14,13 +14,12 @@ class ScoreSheet final
 private:
     std::array<std::pair<int, bool>, 15> scores;
 public:
-    //Only allow construction and destruction no move/copy operations
-    ScoreSheet();
-    ~ScoreSheet() = default;
-    ScoreSheet(const ScoreSheet& rhs) = delete;
-    ScoreSheet(ScoreSheet&& rhs) = delete;
-    ScoreSheet& operator=(ScoreSheet copy) = delete;
-
+    ScoreSheet() noexcept { //by default all scores set to zero
+        for(auto& [points, available] : scores) {
+            points = 0;
+            available = true;
+        }
+    }
     int const upperScore() const;
     int const lowerScore() const;
     int const totalScore() const;
