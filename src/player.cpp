@@ -13,7 +13,7 @@ void Player::rollIndividual(int index) {
 }
 
 void Player::displayDice() {
-    dice.show();
+    dice.display();
 }
 
 void Player::displayScore() const {
@@ -43,7 +43,7 @@ void Player::turn() {
 
 //SCORING SECTION
 int Player::totalOfDice() {
-    return dice.total();
+    return dice.sum();
 }
 
 bool Player::topScore(int value) { //calculates scores for upper section, ones-sixes
@@ -228,7 +228,7 @@ bool Player::isChance() {
 }
 
 bool Player::isYahtzee() {
-    for (int i = 1; i < dice.size(); i++) { //compare die 2-5 to first die
+    for (std::size_t i = 1; i < dice.size(); i++) { //compare die 2-5 to first die
         if (dice[i] != dice[0]) //if not equal, not a yahtzee
             return false;
     }

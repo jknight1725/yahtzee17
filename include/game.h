@@ -1,16 +1,13 @@
 #include "player.h"
-#include <vector>
-#include <memory>
 #include <fstream>
+#include <memory>
 #include <string>
+#include <vector>
 
 #ifndef _GAME_H
 #define _GAME_H
-//dynamically allocates players and gives them turns
+
 class Game final {
-private:
-    std::vector<Player> players; //store players
-    std::string high_scores {"highScores.txt"};
 public:
     Game() = default;
     ~Game() = default;
@@ -26,6 +23,8 @@ public:
     std::vector<int> loadScores();
 
 private:
+    std::vector<Player> players;
+    std::string high_scores {"highScores.txt"};
     std::string ascii_art {
             "\n\n"
             " #     #                                          \n"

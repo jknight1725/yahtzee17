@@ -1,7 +1,7 @@
 #include "../include/scoreSheet.h"
 #include "../include/enumScore.h"
 
-int const ScoreSheet::upperScore() const { //tally ones-sixes
+int ScoreSheet::upperScore() const { //tally ones-sixes
     int upperScore {0};
     for(int i = 0; i < bonus; ++i) {
         upperScore += scores[i].first;
@@ -9,15 +9,15 @@ int const ScoreSheet::upperScore() const { //tally ones-sixes
     return upperScore;
 }
 
-int const ScoreSheet::lowerScore() const { //tally from threeKind to last score
+int ScoreSheet::lowerScore() const { //tally from threeKind to last score
     int lowerScore {0};
-    for(int i = threeKind; i < scores.size(); ++i) {
+    for(std::size_t i = threeKind; i < scores.size(); ++i) {
         lowerScore += scores[i].first;
     }
     return lowerScore;
 }
 
-int const ScoreSheet::totalScore() const { //tally all scores on sheet
+int ScoreSheet::totalScore() const { //tally all scores on sheet
     int total {0};
     for(const auto& [points, _] : scores) {
         total += points;

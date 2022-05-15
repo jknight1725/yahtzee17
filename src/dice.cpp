@@ -12,11 +12,11 @@ void Dice::rollAll() {
         die = sides(generator);
 }
 
-void Dice::rollIndividual(int index) {
+void Dice::rollIndividual(std::size_t index) {
     dice[index] = sides(generator);
 }
 
-void Dice::show() const {
+void Dice::display() const noexcept {
     for(const auto& die : dice) {
         std::cout << '[' << die << ']' << ' ';
     }
@@ -26,14 +26,14 @@ void Dice::show() const {
                  " 1   2   3   4   5\n";
 }
 
-int Dice::total() const { //sum dice
-    return std::reduce(dice.cbegin(), dice.cend());
+int Dice::sum() const noexcept {
+    return std::accumulate(dice.cbegin(), dice.cend(), 0);
 }
 
-void Dice::sort() { //sort dice lowest to highest
+void Dice::sort() {
     std::sort(dice.begin(), dice.end());
 }
 
-int Dice::count(int value) const { //how many times a die appears in dice
-    return static_cast<int>(std::count(dice.cbegin(),dice.cend(),value));
+int Dice::count(int value) const noexcept {
+    return std::count(dice.cbegin(),dice.cend(),value);
 }

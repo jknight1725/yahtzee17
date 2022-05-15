@@ -2,19 +2,18 @@
 #include <thread>
 #include <chrono>
 
-void Game::addPlayers(int x)  { //make x players
+void Game::addPlayers(int x)  {
     for(int i = 0; i < x; ++i) {
         players.emplace_back(Player{});
     }
 }
-
 
 void Game::menu() {
     std::cout << ascii_art << std::endl;
     std::cout << greeting << std::endl;
     int choice {-1};
     std::cin >> choice;
-    while(std::cin.fail() || (choice < 0 || choice > 3)) //sanitize input
+    while(std::cin.fail() || (choice < 0 || choice > 3))
     {
         std::cin.clear();
         std::cin.ignore(1000,'\n');
@@ -41,7 +40,7 @@ void Game::multiPlayer() {
     std::cout << "How many players?\n";
     int choice{0};
     std::cin >> choice;
-    while(std::cin.fail() || (choice < 0 )) //sanitize input
+    while(std::cin.fail() || (choice < 0 ))
     {
         std::cin.clear();
         std::cin.ignore(1000,'\n');
@@ -50,7 +49,7 @@ void Game::multiPlayer() {
     addPlayers(choice);
 }
 
-void Game::turn() { //each player takes a turn in order
+void Game::turn() {
     for(auto& player : players) {
         player.turn();
         std::this_thread::sleep_for(std::chrono::seconds(1));
