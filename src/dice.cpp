@@ -1,4 +1,4 @@
-#include "../include/dice.h"
+#include "include/dice.h"
 #include <random>
 #include <algorithm>
 #include <numeric>

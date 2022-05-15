@@ -11,8 +11,6 @@ set(SOURCES
     src/scoreSheet.cpp
 )
 
-include_directories( include )
-
 add_executable(yahtzee17 ${SOURCES})
 
 target_compile_options (yahtzee17 PRIVATE -std=c++17 -Wall -Wextra -Wpedantic -Werror -Wc++17-extensions)
