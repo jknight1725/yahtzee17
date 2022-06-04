@@ -1,9 +1,7 @@
 #include <array>
 #include <iostream>
 
-#ifndef _scoreSheet_H
-#define _scoreSheet_H
-
+#pragma once
  /// Array of 15 <int/bool> pairs corresponding to different yahtzee scores.
  /// bool indicates if the score sheet has already recorded the respective score
  /// sheet can read/write/tally/print its scores
@@ -29,5 +27,3 @@ public:
 private:
     std::array<std::pair<int, bool>, 15> scores;
 };
-
-#endif

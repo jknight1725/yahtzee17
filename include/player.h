@@ -1,8 +1,7 @@
 #include "dice.h"
 #include "scoreSheet.h"
 
-#ifndef _Player_H
-#define _Player_H
+#pragma once
 
 /// Player has dice and a score sheet
 /// Player rolls dice during turns and checks if their dice are valid scores before placing
@@ -43,5 +42,3 @@ private:
     Dice dice;
     ScoreSheet scores;
 };
-
-#endif

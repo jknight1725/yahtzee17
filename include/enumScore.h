@@ -1,5 +1,4 @@
-#ifndef _ENUMSCORE_H
-#define _ENUMSCORE_H
+#pragma once
 
 #include <cstdint>
 enum score {
@@ -19,4 +18,3 @@ enum score {
     chance,
     yahtzeeBonus
 };
-#endif

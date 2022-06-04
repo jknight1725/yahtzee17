@@ -3,8 +3,10 @@
 #include <algorithm>
 #include <numeric>
 
-static std::random_device rd; //seed generator
-static std::mt19937 generator(rd()); //generate random numbers
+namespace {
+    std::random_device rd; //seed generator
+    std::mt19937 generator(rd()); //generate random numbers
+}
 
 
 void Dice::rollAll() {

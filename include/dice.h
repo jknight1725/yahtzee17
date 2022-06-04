@@ -2,8 +2,7 @@
 #include <iostream>
 #include <random>
 
-#ifndef _DICE_H
-#define _DICE_H
+#pragma once
 
 /// Defines a set of five dice that can change their values to a random number
 /// in a specified range (1,6) upon being rolled.
@@ -52,5 +51,3 @@ private:
     std::array<int, 5> dice;
     std::uniform_int_distribution<int> sides;
 };
-
-#endif

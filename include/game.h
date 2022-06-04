@@ -4,8 +4,7 @@
 #include <string>
 #include <vector>
 
-#ifndef _GAME_H
-#define _GAME_H
+#pragma once
 
 class Game final {
 public:
@@ -44,4 +43,3 @@ private:
             "3) HighScores\n"
     };
 };
-#endif
